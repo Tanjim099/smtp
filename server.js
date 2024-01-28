@@ -26,7 +26,7 @@ app.post("/sendmail", async (req, res) => {
         return
     }
     const text = `Name:- ${name} \n Email:- ${email} \n Phone Number:- ${number} \n ${message ? `Message:- ${message}` : ""} \n ${select ? `Interested:- ${select}` : ""}`;
-    const subject = projectName || "Nikoo Homes";
+    const subject = "Nikoo Homes";
     sendMail(email, subject, text);
     res.status(200).send({
         success: true,
