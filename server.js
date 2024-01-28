@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.post("/sendmail", async (req, res) => {
-    const { name, email, number, projectName } = req.body;
+    const { name, email, number, message, select, projectName } = req.body;
     if (!email || !name || !number) {
         res.status(501).send({
             success: false,
@@ -25,8 +25,8 @@ app.post("/sendmail", async (req, res) => {
         })
         return
     }
-    const text = `Name:- ${name} \n Email:- ${email} \n Phone Number:- ${number}`;
-    const subject = projectName || "Total Environment Over the Rainbow";
+    const text = `Name:- ${name} \n Email:- ${email} \n Phone Number:- ${number} \n ${message ? `Message:- ${message}` : ""} \n ${select ? `Interested:- ${select}` : ""}`;
+    const subject = projectName;
     sendMail(email, subject, text);
     res.status(200).send({
         success: true,
